@@ -1,0 +1,62 @@
+valid VP:
+
+    Matteo Midena VP (iss-kid dont match neither in the VC)
+eyJhbGciOiJFUzI1NksiLCJ0eXAiOiJKV1QifQ.eyJ2cCI6eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvMjAxOC9jcmVkZW50aWFscy92MSJdLCJ0eXBlIjpbIlZlcmlmaWFibGVQcmVzZW50YXRpb24iLCJDdXN0b20iXSwidmVyaWZpYWJsZUNyZWRlbnRpYWwiOlsiZXlKaGJHY2lPaUpGWkVSVFFTSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnBZWFFpT2pFMk56YzBPVEUwTWpFc0luWmpJanA3SWtCamIyNTBaWGgwSWpwYkltaDBkSEJ6T2k4dmQzZDNMbmN6TG05eVp5OHlNREU0TDJOeVpXUmxiblJwWVd4ekwzWXhJbDBzSW5SNWNHVWlPbHNpVm1WeWFXWnBZV0pzWlVOeVpXUmxiblJwWVd3aUxDSk5iMjV2YTJWbFRHOW5hVzRpWFN3aVkzSmxaR1Z1ZEdsaGJGTjFZbXBsWTNRaU9uc2lhV1FpT2lKa2FXUTZhMlY1T25wUk0zTm9jMjF1YlhrMlZFWjNPVXhoVWxOcE5WZDFiV2h0ZFVOeVpqWTRSRVZCVUdWWlJsVmhkMDV6YVZOTldtc2lMQ0psYldGcGJDSTZJbTFoZEhSbGJ5NXRhV1JsYm1GQWJXOXViMnRsWlM1amIyMGlMQ0oxYVdRaU9pSmtZVE0yTlRWbE9DMWtNakl5TFRRME1XVXRZV000WkMwNU1XTm1aRGd3TkRJeU1Ua2lmU3dpYVhOemRXVnlJanA3SW1sa0lqb2laR2xrT210bGVUcDZOazFyYW1oaGNsTTVlbFpGVW1aMmREUkRiMHR2VVdaUVJISjNWRGhvWmxGRlZGQmllSEZaT0c5eFdYVktOalFpZlN3aWFYTnpkV0Z1WTJWRVlYUmxJam9pTWpBeU15MHdNaTB5TjFRd09UbzFNRG95TVM0ME5ERmFJbjBzSW1semN5STZJbVJwWkRwclpYazZlalpOYTJwb1lYSlRPWHBXUlZKbWRuUTBRMjlMYjFGbVVFUnlkMVE0YUdaUlJWUlFZbmh4V1RodmNWbDFTalkwSWl3aWMzVmlJam9pWkdsa09tdGxlVHA2VVROemFITnRibTE1TmxSR2R6bE1ZVkpUYVRWWGRXMW9iWFZEY21ZMk9FUkZRVkJsV1VaVllYZE9jMmxUVFZwckluMC5FTXZoekdQSWdidDBCUmd0MzM3V3JSQXhKQlNYanNzQkpMT0Q3cm5SVkdick5EVWttdWNfSWVhV1o1bFVERFdscVBWNHBhWF9nQ2JXSmQxd3JNbzlDUSJdfSwibmJmIjoxNjc3NDkyNjA2LCJpc3MiOiJkaWQ6a2V5OnpRM3Noc21ubXk2VEZ3OUxhUlNpNVd1bWhtdUNyZjY4REVBUGVZRlVhd05zaVNNWmsifQ.Yoc_qGr4pRNxGbUfdKuZGoPYhmnJn0I8DSm2ceHPF7SFsFJET8nEvAPc_irjY-fsneRBVTT9_P0WZ03GvGi28Q
+
+
+invalid VP's:
+
+
+VP and VC template:
+
+        const vc: JSON_LD_VC = {
+            "@context": [
+                "https://www.w3.org/2018/credentials/v1"
+            ],
+            "type": [
+                "VerifiableCredential",
+                "MonokeeRole"
+            ],
+            "credentialSubject": {
+                "id": "did:key:zQ3sheJKHnGuiVnrMYnTPfQgFEVarxKdaFBCjfP4i4ohHVNFY",
+                "email": "example@gmail.com",
+                "uid": "ccccccc",
+                "role": "llll"
+            },
+        }
+
+        const vp: JSON_LD_VP = {
+            "@context": [
+                "https://www.w3.org/2018/credentials/v1",
+                "https://www.w3.org/2018/credentials/examples/v1"
+            ],
+            "type": [
+                "VerifiablePresentation",
+                "CredentialManagerPresentation"
+            ],
+            "verifiableCredential": [],
+        }
+
+        "input_descriptors": [ {
+            "id": "Monokee employee",
+            "name": "Monokee employee",
+            "purpose": "VC's Authentication",
+            "constraints": {
+                "fields": [{
+                    "path": ["$.iss"]
+                }]
+            }
+        }  
+        ]
+
+
+    vp_gen("example","example","example","example","example") -> no Errors
+eyJhbGciOiJFZERTQSIsImtpZCI6ImV4YW1wbGUifQ.eyJ2cCI6eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvMjAxOC9jcmVkZW50aWFscy92MSIsImh0dHBzOi8vd3d3LnczLm9yZy8yMDE4L2NyZWRlbnRpYWxzL2V4YW1wbGVzL3YxIl0sInR5cGUiOlsiVmVyaWZpYWJsZVByZXNlbnRhdGlvbiIsIkNyZWRlbnRpYWxNYW5hZ2VyUHJlc2VudGF0aW9uIl0sInZlcmlmaWFibGVDcmVkZW50aWFsIjpbImV5SmhiR2NpT2lKRlpFUlRRU0lzSW10cFpDSTZJbVY0WVcxd2JHVWlmUS5leUoyWXlJNmV5SkFZMjl1ZEdWNGRDSTZXeUpvZEhSd2N6b3ZMM2QzZHk1M015NXZjbWN2TWpBeE9DOWpjbVZrWlc1MGFXRnNjeTkyTVNKZExDSjBlWEJsSWpwYklsWmxjbWxtYVdGaWJHVkRjbVZrWlc1MGFXRnNJaXdpVFc5dWIydGxaVkp2YkdVaVhTd2lZM0psWkdWdWRHbGhiRk4xWW1wbFkzUWlPbnNpYVdRaU9pSmthV1E2YTJWNU9ucFJNM05vWlVwTFNHNUhkV2xXYm5KTldXNVVVR1pSWjBaRlZtRnllRXRrWVVaQ1EycG1VRFJwTkc5b1NGWk9SbGtpTENKbGJXRnBiQ0k2SW1WNFlXMXdiR1ZBWjIxaGFXd3VZMjl0SWl3aWRXbGtJam9pWTJOalkyTmpZeUlzSW5KdmJHVWlPaUpzYkd4c0luMTlMQ0pwYzNNaU9pSmxlR0Z0Y0d4bElpd2ljM1ZpSWpvaVpYaGhiWEJzWlNKOS5wd2x6Ymp5QlVVOENrSFpBZVJaakM5SzhXLVNQd1FnUGNVSEdsTU5ObnUyS3ByaTVNWkFJMEtsOU5CVG5LY2ZlRDR3M1JoWS1BNzNjeTdLWWtiOEJEdyJdfSwiaXNzIjoiZXhhbXBsZSJ9.RLlERoE-3CfdyE1S_8imYSp1Q9uGyyj5-3HQELAZTI8stq-kkOc6t2XZt4IydTo9Jd0Mz0V0Ads9MLJ3z6TSDg
+    vp_gen ("vc", "vc", "vc", "vp", "vp") -> Error: VC's sub and VP's iss dont match
+eyJhbGciOiJFZERTQSIsImtpZCI6InZwIn0.eyJ2cCI6eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvMjAxOC9jcmVkZW50aWFscy92MSIsImh0dHBzOi8vd3d3LnczLm9yZy8yMDE4L2NyZWRlbnRpYWxzL2V4YW1wbGVzL3YxIl0sInR5cGUiOlsiVmVyaWZpYWJsZVByZXNlbnRhdGlvbiIsIkNyZWRlbnRpYWxNYW5hZ2VyUHJlc2VudGF0aW9uIl0sInZlcmlmaWFibGVDcmVkZW50aWFsIjpbImV5SmhiR2NpT2lKRlpFUlRRU0lzSW10cFpDSTZJblpqSW4wLmV5SjJZeUk2ZXlKQVkyOXVkR1Y0ZENJNld5Sm9kSFJ3Y3pvdkwzZDNkeTUzTXk1dmNtY3ZNakF4T0M5amNtVmtaVzUwYVdGc2N5OTJNU0pkTENKMGVYQmxJanBiSWxabGNtbG1hV0ZpYkdWRGNtVmtaVzUwYVdGc0lpd2lUVzl1YjJ0bFpWSnZiR1VpWFN3aVkzSmxaR1Z1ZEdsaGJGTjFZbXBsWTNRaU9uc2lhV1FpT2lKa2FXUTZhMlY1T25wUk0zTm9aVXBMU0c1SGRXbFdibkpOV1c1VVVHWlJaMFpGVm1GeWVFdGtZVVpDUTJwbVVEUnBORzlvU0ZaT1Jsa2lMQ0psYldGcGJDSTZJbVY0WVcxd2JHVkFaMjFoYVd3dVkyOXRJaXdpZFdsa0lqb2lZMk5qWTJOall5SXNJbkp2YkdVaU9pSnNiR3hzSW4xOUxDSnBjM01pT2lKMll5SXNJbk4xWWlJNkluWmpJbjAuVEp3clBpUVBFQkE2ZzdyMlRIZ0tGdTZUcHNDVVhtbFAwemc1U2xNTGNhLVJhSHZYclhkSFNSTkJ0U0Jac3NuSmFMVzlMcklLVVJWQUJzY3E2eTk4Q0EiXX0sImlzcyI6InZwIn0.pt9VQmxVG3U7TDNxvl5iRMOx4Wt9ayjX7KSL0uSz5V-6m8VluHADjcpX8otmOFsEideX0mDZ74Dt3aNEF4YeBg
+
+
+
+
+subject_is_issuer Error: 
+vp: eyJhbGciOiJFZERTQSIsImtpZCI6ImlzcyJ9.eyJ2cCI6eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvMjAxOC9jcmVkZW50aWFscy92MSIsImh0dHBzOi8vd3d3LnczLm9yZy8yMDE4L2NyZWRlbnRpYWxzL2V4YW1wbGVzL3YxIl0sInR5cGUiOlsiVmVyaWZpYWJsZVByZXNlbnRhdGlvbiIsIkNyZWRlbnRpYWxNYW5hZ2VyUHJlc2VudGF0aW9uIl0sInZlcmlmaWFibGVDcmVkZW50aWFsIjpbImV5SmhiR2NpT2lKRlpFUlRRU0lzSW10cFpDSTZJbXhzYkNKOS5leUoyWXlJNmV5SkFZMjl1ZEdWNGRDSTZXeUpvZEhSd2N6b3ZMM2QzZHk1M015NXZjbWN2TWpBeE9DOWpjbVZrWlc1MGFXRnNjeTkyTVNKZExDSjBlWEJsSWpwYklsWmxjbWxtYVdGaWJHVkRjbVZrWlc1MGFXRnNJaXdpVFc5dWIydGxaVkp2YkdVaVhTd2lZM0psWkdWdWRHbGhiRk4xWW1wbFkzUWlPbnNpYVdRaU9pSmthV1E2YTJWNU9ucFJNM05vWlVwTFNHNUhkV2xXYm5KTldXNVVVR1pSWjBaRlZtRnllRXRrWVVaQ1EycG1VRFJwTkc5b1NGWk9SbGtpTENKbGJXRnBiQ0k2SW1WNFlXMXdiR1ZBWjIxaGFXd3VZMjl0SWl3aWRXbGtJam9pWTJOalkyTmpZeUlzSW5KdmJHVWlPaUpzYkd4c0luMTlMQ0pwYzNNaU9pSnNiR3dpTENKemRXSWlPaUpwYzNNaWZRLlFYbklMem02bUQtMjFHWnJUd0JueGlteGRHYlk4T3lFTnl6R2F0OTBacTlwZnFxSG50c00zWWE0a3NkRVRFQjFENmZxeGpsLTR3QmFIQlh0MGNuNUJnIl19LCJpc3MiOiJpc3MifQ.Xmt0Z8VoiB1OQmX7UBZm-x5NkpHMS2oOz1dt30_DYfnlGfdiciBJO94z_4piTBVbx_jLuO96Oyf1ovXp24RnBw

@@ -26,14 +26,14 @@ export interface JWT_VC_Payload {
 }
 
 export interface JSON_LD_VC {
-    '@context': string[]; // TODO must be an ordered set
+    '@context': string[]
     id?: string, // specify the identifier of the credential
     type: string[]; // example: ["VerifiableCredential", "UniversityDegreeCredential"]
-    issuer: string, // entity that issued the credential (DID)
-    issuanceDate: string,
+    issuer?: string, // entity that issued the credential
+    issuanceDate?: string,
     credentialSubject: {
         [key: string]: any, 
-        id?: string
+        id: string
     }, // claims about the subject of VC (JSON object)
     proof?: any,
     credentialSchema?: Array<CredentialSchema> | CredentialSchema,
@@ -48,8 +48,8 @@ export interface JSON_LD_VP {
     "@context": string[],
     id?: string,
     type: string[],
-    verifiableCredential: string[], // base64url encoding -> JWT format
-    holder: string,
+    verifiableCredential: string[],
+    holder?: string,
     proof?: any,
 }
 

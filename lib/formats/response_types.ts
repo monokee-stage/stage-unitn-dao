@@ -1,7 +1,6 @@
-import {JWT_VP} from './formats';
 import {JSONSchemaType} from 'ajv';
 
-export type VP_Token = (JWT_VP | string)[]; // jwt or jwt in string format
+export type VP_Token = string[] | string; // maybe update it to allow other formats
 
 export interface AuthorizationResponse {
     vp_token: VP_Token,
@@ -18,8 +17,8 @@ export interface PresentationSubmission {
 export interface DescriptorMap {
     id: string, // string that matches the id property of the Input Descriptor in the Presentation Definition that this Presentation Submission is related to
     format: "jwt_vp" | "jwt_vc",
-    path: string, // the correct type form is Array<jsonpath>
-    path_nested: DescriptorMap,
+    path: string,
+    path_nested?: DescriptorMap,
 }
 
 // export let responseSchema: JSONSchemaType<AuthorizationResponse> = {
@@ -41,23 +40,31 @@ export interface DescriptorMap {
 
 // }
 
+let vp_token_schema: JSONSchemaType<VP_Token> = {
+    oneOf: [
+        {
+            type: "string" 
+        },
+        {
+            type: "array",
+            items: {
+                type: "string"
+            }
+        }
+    ]
+}
+
 
 // TODO: well built schema
 interface ResponseSchema {
-    vp_token: string[],
+    vp_token: VP_Token,
     presentation_submission: any,
 }
 
 export let responseSchema: JSONSchemaType<ResponseSchema> = {
     type: "object",
     properties: {
-        vp_token: {
-            type: "array",
-            items: {
-                type: "string"
-            },
-            nullable: false,
-        },
+        vp_token: vp_token_schema,
         presentation_submission: {
             type: "object",
             properties: {},

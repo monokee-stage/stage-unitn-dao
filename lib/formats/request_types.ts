@@ -1,6 +1,6 @@
 import { JSONSchemaType } from "ajv";
 
-interface AuthorizationRequest {
+export interface AuthorizationRequest {
   response_type: "vp_token",
   client_id: string, // a unique string representing the registration information provided by the client
   presentation_definition: PresentationDefinition,
@@ -10,15 +10,15 @@ interface AuthorizationRequest {
   state?: string,
 }
 
-interface PresentationDefinition {
+export interface PresentationDefinition {
   id: string, // UUID string
   input_descriptors: Array<InputDescriptor>,
 }
 
-interface InputDescriptor {
-  id: string, // string that does not conflict with the id of another Input Descriptor Object in the same Presentation Definition
+export interface InputDescriptor {
+  id: string,
   constraints: ConstraintsObject,
-  schema: Schema[],
+  schema?: Schema[],
   name?: string,
   purpose?: string,
 }
@@ -29,7 +29,7 @@ interface Schema {
 }
 
 
-interface ConstraintsObject {
+export interface ConstraintsObject {
   fields?: Fields[],
   limit_disclosure?: "preferred"| "required",
   subject_is_issuer?: "preferred" | "required",
@@ -37,34 +37,22 @@ interface ConstraintsObject {
   same_subject?: SameSubject[],
 }
 
-// TODO: is it the correct way? Problem: have the same Obj but want different names
-export type IsHolder = IsHolderAndSameSubject;
-export type SameSubject = IsHolderAndSameSubject;
+type IsHolder = IsHolderAndSameSubject;
+type SameSubject = IsHolderAndSameSubject;
 
 interface IsHolderAndSameSubject {
   field_id: string[],
   directive: "required" | "preferred",
 }
 
-/*
-  fields[1]: iss issuer
-         [2] aud auder
-
-  isholder[0]: [field1,field2,field3]
-  isholder[1]: [f4,f5,f6]
-*/
-
-interface Fields {
-  path: Array<string>, // the correct type form is Array<jsonpath>
+export interface Fields {
+  path: Array<string>,
   id?: string, // string that is unique from every other field object’s id property, including those contained in other Input Descriptor Objects
   purpose?: string,
   name?: string,
   filter?: JSONSchemaType<any>,
   predicate?: "required" | "preferred",
 }
-
-
-export {AuthorizationRequest, PresentationDefinition, InputDescriptor, ConstraintsObject, Fields};
 
 /*
 {

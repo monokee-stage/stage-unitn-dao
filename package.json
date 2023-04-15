@@ -4,6 +4,7 @@
     "@types/jsonpath": "^0.2.0",
     "ajv": "^8.12.0",
     "axios": "^0.27.2",
+    "bs58": "^5.0.0",
     "did-jwt": "^6.11.6",
     "did-jwt-vc": "^3.1.2",
     "did-resolver": "^4.1.0",
@@ -17,6 +18,7 @@
     "jwt-decode": "^3.1.2",
     "nodemon": "^2.0.22",
     "ts-node": "^10.9.1",
+    "uint8arrays": "^4.0.3",
     "vc-js": "^0.6.4",
     "vp-toolkit": "^0.2.3",
     "web-did-resolver": "^2.0.22"
