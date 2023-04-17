@@ -5,11 +5,11 @@ import * as jp from 'jsonpath'
 
 //TODO input_desc.schema to define
 
-export let authorization_request: monokee.AuthorizationRequest = require('../lib/request.json')
+export let authorization_request: monokee.AuthorizationRequest = require('../lib/formats/request.json')
 
 export function authorizationRequest(_request: express.Request ,response: express.Response){ 
 
-    console.log("connected..;")
+    console.log("connected...")
 
     let presentation_definition: monokee.PresentationDefinition = authorization_request.presentation_definition
 

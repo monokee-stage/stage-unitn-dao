@@ -9,14 +9,13 @@
             "purpose": "VC's Authentication",
             "constraints": {
                 "fields": [{
-                    "path": ["$.iss"],
-                    "filter": {
-                        "const": "aaa"
-                    },
-                    "predicate": "preferred"
+                    "path": ["$.iss"]
                 },
                 {
                     "path": ["$.sub"]
+                },
+                {
+                    "path": ["$.vc"]
                 }],
                 "limit_disclosure": "preferred",
                 "subject_is_issuer": "preferred"

@@ -11,7 +11,7 @@ export let vp_to_vcs: Map<string, string[]> = new Map()
 export let id_to_vcs: Map<InputDescriptor, string[]> = new Map()
 export let vc_to_claims: Map<string, number> = new Map()
 
-import { iss_kid, vc_vp_binding, constraints, uri, filteringWrapper } from '../lib/validate'
+import { iss_kid, vc_vp_binding, constraints, uri, filteringWrapper, verifyJWT } from '../lib/validate'
 
 const ajv = new Ajv({ allErrors: true })
 const validate = ajv.compile(responseSchema)
@@ -19,7 +19,12 @@ const validate = ajv.compile(responseSchema)
 
 // TODO: implement nested_path of descriptor_map in presentation submission (see OIDC4VP)
 
-export function authorizationResponseVerifier(request: express.Request, response: express.Response) {
+export function authorizationResponse(request: express.Request, response: express.Response) {
+
+    // reset of outer function Maps
+    vp_to_vcs.clear()
+    id_to_vcs.clear()
+    vc_to_claims.clear()
 
     /*
         Following steps from:
@@ -60,7 +65,7 @@ export function authorizationResponseVerifier(request: express.Request, response
                 If a DID Doc contains multiple keys, kid in the header is used to identify which key to use.
             */
             process.stdout.write("3. verifying the VP jwt... ")
-            //if (!await verifyJWT(vp)) throw new Error("Invalid VerifiablePresentation");
+            if (!await verifyJWT(vp)) throw new Error("Invalid VerifiablePresentation");
             process.stdout.write("Done\n")
 
             // verify nonce
@@ -98,23 +103,23 @@ export function authorizationResponseVerifier(request: express.Request, response
                     If a DID Doc contains multiple keys, kid in the header is used to identify which key to use.
                 */
                 process.stdout.write("6. verifying the VC jwt... ")
-                //if (!await verifyJWT(vc)) throw new Error("Invalid VerifiableCredential");
+                if (!await verifyJWT(vc)) throw new Error("Invalid VerifiableCredential");
                 process.stdout.write("Done\n")
 
                 /* 7. Check that the DID value in the iss Claim of a VP exactly match with the sub Claim in the VC(s). (Holder Binding) */
                 process.stdout.write("7. verifying holder binding... ")
-                if (!vc_vp_binding(vp_payload, vc_payload)) throw new Error("VC's 'sub' and related VP's 'iss' don't match");
+                if (!vc_vp_binding(vp_payload, vc_payload)) throw new Error("VC's sub and related VP's iss don't match");
                 process.stdout.write("Done\n")
 
                 /* TODO: 8 missing */
 
-                console.log("\nThe response has been successfully validated")
+                console.log("\nThe response has been successfully validated\n")
 
             }))
 
         })
 
-        Promise.all(promises).then((_) => response.status(200).send("OK")).catch((e: any) => {
+        Promise.all(promises).then((_) => response.status(200).send("Valid AuthorizationResponse")).catch((e: any) => {
             response.status(400).send(e.message);
         })
 

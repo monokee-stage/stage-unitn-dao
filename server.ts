@@ -1,7 +1,7 @@
 import * as express from 'express';
 import * as http from 'http';
 import { authorizationRequest } from './modules/request';
-import { authorizationResponseVerifier } from './modules/response';
+import { authorizationResponse } from './modules/response';
 
 const PORT = 8000;
 export const REDIRECT_URI = "localhost:" + PORT.toString() + "/post";
@@ -15,10 +15,7 @@ const http_server = http.createServer(app);
 app.get("/", authorizationRequest);
 
 // handling authorization response
-app.post("/post", authorizationResponseVerifier);
-
-
-// app.post(RESPONSE_URI, vp_token_verifier); 
+app.post("/post", authorizationResponse);
 
 http_server.listen(PORT, () => { console.log('Listening on ' + PORT.toString() + ' port') })
 

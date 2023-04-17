@@ -87,7 +87,7 @@ let privKey = keypair.privateKey
 // console.log(issuer)
 
 
-function vp_gen(vc_iss: any, vc_kid: any, vc_sub: string, vp_iss: string, vp_kid: string) {
+function jwtGenerator(vc_iss: any, vc_kid: any, vc_sub: string, vp_iss: string, vp_kid: string) {
     jose.importJWK(privKey as unknown as jose.JWK , "ed25519" ).then((privKey) => {
 
         new jose.SignJWT({ "vc": vc }).setIssuer(vc_iss).setProtectedHeader({ "alg": "EdDSA", "kid": vc_kid }).setSubject(vc_sub).sign(privKey).then((jwt_vc) => {
@@ -99,7 +99,7 @@ function vp_gen(vc_iss: any, vc_kid: any, vc_sub: string, vp_iss: string, vp_kid
             // jose.generateKeyPair('RS256').then(({ publicKey, privateKey }) => { 
         
             new jose.SignJWT({ "vp": vp }).setIssuer(vp_iss).setProtectedHeader({ "alg": "EdDSA", "kid": vp_kid }).sign(privKey).then((res) => {
-                console.log("\n\nvp: {\n\t" + res + "\n\n}")
+                console.log("\njwt: {\"" + res + "\"}")
                 //syncWriteFile("./out.txt", res);
             })
     
@@ -109,4 +109,4 @@ function vp_gen(vc_iss: any, vc_kid: any, vc_sub: string, vp_iss: string, vp_kid
     })
 }
 
-vp_gen("aaa","aaa","iss","iss","iss")
+jwtGenerator("aaa","aaa","iss","iss","iss")
